@@ -1,11 +1,15 @@
-.homePage {
+.contactPage {
   flex: 1;
-  width: 100%;
-  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+}
+
+.avatar {
+}
+
+.info {
 }
 
 .title {
@@ -15,13 +19,16 @@
   font-size: 120px;
 }
 
-.buttons {
-  margin-top: 40px;
+.contacts {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
 }
 
-.link {
-  width: 100%;
+.name {
+  font-size: 40px;
+}
+
+.tg {
+  font-size: 24px;
 }

@@ -1,21 +1,17 @@
 import React from "react";
 
-import styles from "./solo-button-macros.module.css";
-import { COUNT_ACCOUNT } from "../../shared/constants/constants";
+import styles from "./solo-button-macros-window.module.css";
+import { COUNT_ACCOUNT } from "../../../shared/constants/constants";
 import { IconButton } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import useSoloButtonStore from "../store/useSoloButtonStore";
 
-interface Props {
-  button: string;
-  pressType: string;
-  delay: number;
-}
+export const SoloButtonMacrosWindow: React.FC = () => {
+  const coutAccs = useSoloButtonStore((state) => state.countAccs);
+  const button = useSoloButtonStore((state) => state.button);
+  const pressType = useSoloButtonStore((state) => state.pressType);
+  const delay = useSoloButtonStore((state) => state.delay);
 
-export const SoloButtonMacros: React.FC<Props> = ({
-  button,
-  pressType,
-  delay,
-}) => {
   const elements: string[] = [];
 
   //   for (let i = 0; i < COUNT_ACCOUNT; i++) {
@@ -34,11 +30,11 @@ export const SoloButtonMacros: React.FC<Props> = ({
   //     elements.push(<div>ENDIF</div>);
   //   }
 
-  for (let i = 0; i < COUNT_ACCOUNT; i++) {
+  for (let i = 0; i < coutAccs; i++) {
     elements.push(`IF WINDOW EXISTS : ${100 + i + 1} - Google Chrome : 0`);
     elements.push(`SWITCH TO WINDOW : ${100 + i + 1} = Google Chrome : 0`);
     elements.push(`Keyboard : ${button} : ${pressType}`);
-    elements.push(`DELAY : ${delay}`);
+    if (delay) elements.push(`DELAY : ${delay}`);
     elements.push(`ENDIF`);
   }
 
@@ -70,7 +66,10 @@ export const SoloButtonMacros: React.FC<Props> = ({
           <ContentCopyIcon />
         </IconButton>
       </div>
-      {elements && elements.map((el, index) => <div key={index}>{el}</div>)}
+      {elements &&
+        button &&
+        pressType &&
+        elements.map((el, index) => <div key={index}>{el}</div>)}
     </div>
   );
 };
