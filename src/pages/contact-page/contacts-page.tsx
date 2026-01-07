@@ -1,9 +1,6 @@
 import styles from "./contacts-page.module.css";
 import { Avatar } from "@mui/material";
 
-import kostykAvatar from "../../shared/assets/kostyk.jpg";
-import svirydzenkaAvatar from "../../shared/assets/svirydzenka.png";
-
 export const ContactsPage = () => {
   return (
     <div className={styles.contactPage}>
@@ -12,7 +9,7 @@ export const ContactsPage = () => {
         <div className={styles.contacts}>
           <Avatar
             alt="kostykovich"
-            src={kostykAvatar}
+            src="/kostyk.jpg"
             sx={{ width: 400, height: 400 }}
           />
           <div className={styles.name}>Хитрый Еврей</div>
@@ -22,7 +19,7 @@ export const ContactsPage = () => {
         <div className={styles.contacts}>
           <Avatar
             alt="svirydzenka"
-            src={svirydzenkaAvatar}
+            src="/svirydzenka.png"
             sx={{ width: 400, height: 400 }}
           />
           <div className={styles.name}>Умный Человек</div>
