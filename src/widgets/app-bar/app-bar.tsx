@@ -13,14 +13,18 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import GestureOutlinedIcon from "@mui/icons-material/GestureOutlined";
+import { NavigatePath } from "../../shared/constants/constants";
+import { useNavigate } from "react-router";
 
 const pages = [
-  { name: "Главная", path: "/" },
-  { name: "Контакты", path: "/contacts" },
+  { name: "Главная", path: NavigatePath.Home },
+  { name: "Контакты", path: NavigatePath.Contacts },
 ];
 const settings = ["Профиль", "Настройки", "Выйти"];
 
 function ResponsiveAppBar() {
+  const navigate = useNavigate();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -41,6 +45,17 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const onNavigate = (path: NavigatePath) => {
+    switch (path) {
+      case NavigatePath.Home:
+        navigate(NavigatePath.Home);
+        break;
+      case NavigatePath.Contacts:
+        navigate(NavigatePath.Contacts);
+        break;
+    }
   };
 
   return (
@@ -99,7 +114,7 @@ function ResponsiveAppBar() {
                   <Typography
                     sx={{ textAlign: "center" }}
                     component="a"
-                    href={page.path}
+                    onClick={() => onNavigate(page.path)}
                   >
                     {page.name}
                   </Typography>
@@ -130,9 +145,11 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Button
                 key={page.name}
-                onClick={handleCloseNavMenu}
+                onClick={() => {
+                  onNavigate(page.path);
+                  handleCloseNavMenu();
+                }}
                 sx={{ my: 2, color: "white", display: "block" }}
-                href={page.path}
               >
                 {page.name}
               </Button>
