@@ -24,7 +24,7 @@ export const Router: React.FC = () => {
             path={NavigatePath.CloneMacros}
             element={<CloneMacrosPage />}
           />
-          <Route path="contacts" element={<ContactsPage />} />
+          <Route path="contacts" element={<InstructionPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
