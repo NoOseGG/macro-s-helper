@@ -6,6 +6,7 @@ import { MainLayout } from "../layouts/main-layout/main-layout";
 import { CloneMacrosPage } from "../../pages/clone-macros-page/clone-macros-page";
 import { NavigatePath } from "../../shared/constants/constants";
 import { InstructionPage } from "../../pages/instruction-page/instruction-page";
+import { ContactsPage } from "../../pages/contact-page/contacts-page";
 
 export const Router: React.FC = () => {
   return (
@@ -23,7 +24,7 @@ export const Router: React.FC = () => {
             path={NavigatePath.CloneMacros}
             element={<CloneMacrosPage />}
           />
-          <Route path="contacts" element={<InstructionPage />} />
+          <Route path="contacts" element={<ContactsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
