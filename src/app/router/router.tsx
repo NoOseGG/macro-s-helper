@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import { HomePage } from "../../pages/home-page/home-page";
 import { ButtonPage } from "../../pages/button-page/button-page";
 import { MainLayout } from "../layouts/main-layout/main-layout";
-import { ContactsPage } from "../../pages/contact-page/contacts-page";
 import { CloneMacrosPage } from "../../pages/clone-macros-page/clone-macros-page";
 import { NavigatePath } from "../../shared/constants/constants";
 import { InstructionPage } from "../../pages/instruction-page/instruction-page";
