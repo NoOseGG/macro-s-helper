@@ -10,6 +10,9 @@ export const HomePage: React.FC = () => {
 
   const onNavigate = (path: NavigatePath) => {
     switch (path) {
+      case NavigatePath.Instruction:
+        navigate(NavigatePath.Instruction);
+        break;
       case NavigatePath.Button:
         navigate(NavigatePath.Button);
         break;
@@ -26,6 +29,12 @@ export const HomePage: React.FC = () => {
     <div className={styles.homePage}>
       <h1 className={styles.title}>Macro's Helper</h1>
       <div className={styles.buttons}>
+        <Button
+          variant="outlined"
+          onClick={() => onNavigate(NavigatePath.Instruction)}
+        >
+          Инструкция по настройке
+        </Button>
         <Button
           variant="outlined"
           onClick={() => onNavigate(NavigatePath.Button)}

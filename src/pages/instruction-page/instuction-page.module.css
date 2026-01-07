@@ -6,34 +6,9 @@
   align-items: center;
 }
 
-.box {
-  display: flex;
-  gap: 100px;
-}
-
-.avatar {
-}
-
-.info {
-}
-
 .title {
   font-family: "Jersey 10", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 120px;
-}
-
-.contacts {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.name {
-  font-size: 40px;
-}
-
-.tg {
-  font-size: 24px;
 }

@@ -1,7 +1,6 @@
 import React from "react";
 
 import styles from "./solo-button-macros-window.module.css";
-import { COUNT_ACCOUNT } from "../../../shared/constants/constants";
 import { IconButton } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import useSoloButtonStore from "../store/useSoloButtonStore";

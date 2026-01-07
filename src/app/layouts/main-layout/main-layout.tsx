@@ -5,7 +5,7 @@ import styles from "./main-layout.module.css";
 import { Outlet } from "react-router";
 import ResponsiveAppBar from "./../../../widgets/app-bar/app-bar";
 
-export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
+export const MainLayout: React.FC<PropsWithChildren> = () => {
   return (
     <div className={styles.mainLayout}>
       <ResponsiveAppBar />
