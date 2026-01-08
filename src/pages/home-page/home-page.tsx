@@ -22,6 +22,9 @@ export const HomePage: React.FC = () => {
       case NavigatePath.CloneMacros:
         navigate(NavigatePath.CloneMacros);
         break;
+      case NavigatePath.SomeBats:
+        navigate(NavigatePath.SomeBats);
+        break;
     }
   };
 
@@ -52,6 +55,12 @@ export const HomePage: React.FC = () => {
           onClick={() => onNavigate(NavigatePath.CloneMacros)}
         >
           Клонировать готовый макрос
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={() => onNavigate(NavigatePath.SomeBats)}
+        >
+          Несколько батников
         </Button>
       </div>
     </div>

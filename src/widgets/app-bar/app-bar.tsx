@@ -17,8 +17,8 @@ import { NavigatePath } from "../../shared/constants/constants";
 import { useNavigate } from "react-router";
 
 const pages = [
-  { name: "Главная", path: NavigatePath.Home },
-  { name: "Контакты", path: NavigatePath.Contacts },
+  { name: "Home", path: NavigatePath.Home },
+  { name: "Contacts", path: NavigatePath.Contacts },
 ];
 const settings = ["Профиль", "Настройки", "Выйти"];
 
@@ -64,8 +64,9 @@ function ResponsiveAppBar() {
         <Toolbar disableGutters>
           <GestureOutlinedIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+            fontSize="large"
           />
-          <Typography
+          {/* <Typography
             variant="h6"
             noWrap
             component="a"
@@ -80,7 +81,7 @@ function ResponsiveAppBar() {
             }}
           >
             Macro's
-          </Typography>
+          </Typography> */}
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
