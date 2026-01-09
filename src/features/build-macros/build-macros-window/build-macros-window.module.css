@@ -1,0 +1,10 @@
+.container {
+  width: 100%;
+  position: relative;
+}
+
+.copyButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

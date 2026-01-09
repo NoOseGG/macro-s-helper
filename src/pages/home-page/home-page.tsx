@@ -25,6 +25,9 @@ export const HomePage: React.FC = () => {
       case NavigatePath.SomeBats:
         navigate(NavigatePath.SomeBats);
         break;
+      case NavigatePath.BuildMacros:
+        navigate(NavigatePath.BuildMacros);
+        break;
     }
   };
 
@@ -61,6 +64,12 @@ export const HomePage: React.FC = () => {
           onClick={() => onNavigate(NavigatePath.SomeBats)}
         >
           Несколько батников
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={() => onNavigate(NavigatePath.BuildMacros)}
+        >
+          Собрать макрос из своих
         </Button>
       </div>
     </div>

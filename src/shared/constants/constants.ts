@@ -8,6 +8,7 @@ export const enum NavigatePath {
   CloneMacros = "clone-macros",
   Contacts = "contacts",
   SomeBats = "some-bats",
+  BuildMacros = "build-macros",
 }
 
 export const BUTTONS = {
