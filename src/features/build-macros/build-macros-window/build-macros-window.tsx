@@ -3,8 +3,12 @@ import React from "react";
 import styles from "./build-macros-window.module.css";
 import { IconButton } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import useBuildMacros from "../store/useBuildMacrosStore";
 
 export const BuildMacrosWindow: React.FC = () => {
+  const countAccs = useBuildMacros((state) => state.countAccs);
+  const macros = useBuildMacros((state) => state.macros);
+  const delays = useBuildMacros((state) => state.delays);
   const elements: string[] = [];
 
   const copyTextToBuffer = () => {
@@ -22,11 +26,24 @@ export const BuildMacrosWindow: React.FC = () => {
       });
 
     // Также
-    console.log("Объединенная строка:", combinedString);
+
     return combinedString;
   };
 
-  console.log(elements);
+  console.log("macros", macros);
+
+  const splitMacros = macros.length > 0 ? macros.join("\n").split("\n") : [];
+  console.log("split", splitMacros);
+
+  for (let j = 0; j < macros.length; j++) {
+    elements.push(`DELAY : ${delays[j]}`);
+    for (let i = 0; i < countAccs; i++) {
+      elements.push(`IF WINDOW EXISTS : ${100 + i + 1} - Google Chrome : 0`);
+      elements.push(`SWITCH TO WINDOW : ${100 + i + 1} = Google Chrome : 0`);
+      macros[j].split("\n").forEach((el) => elements.push(el));
+      elements.push(`ENDIF`);
+    }
+  }
 
   return (
     <div className={styles.container}>

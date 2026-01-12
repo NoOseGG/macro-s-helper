@@ -7,23 +7,30 @@ import {
   Paper,
   Typography,
   Stack,
+  InputAdornment,
 } from "@mui/material";
 import {
   Add as AddIcon,
   Delete as DeleteIcon,
   Save as SaveIcon,
+  AccessTime as TimeIcon,
 } from "@mui/icons-material";
+import useBuildMacros from "../store/useBuildMacrosStore";
+import { BuildMacrosCountAccs } from "./ui/build-macros-count-accs";
 
 interface FieldData {
-  id: string; // Используем строковый ID для стабильности
+  id: string;
   value: string;
+  delay: number; // Добавляем поле для задержки
 }
 
 export const BuildMacrosSettings: React.FC = () => {
   const [fields, setFields] = useState<FieldData[]>([
-    { id: "1", value: "" },
-    { id: "2", value: "" },
+    { id: "1", value: "", delay: 0 },
+    { id: "2", value: "", delay: 0 },
   ]);
+  const setMacros = useBuildMacros((state) => state.setMacros);
+  const setDelays = useBuildMacros((state) => state.setDelays);
 
   const handleInputChange = (id: string, value: string) => {
     setFields((prevFields) =>
@@ -31,9 +38,22 @@ export const BuildMacrosSettings: React.FC = () => {
     );
   };
 
+  const handleDelayChange = (id: string, delay: number) => {
+    // Ограничиваем ввод отрицательных чисел и больших значений
+    const validDelay = Math.max(0, Math.min(delay, 999999)); // Макс 999999 мс
+    setFields((prevFields) =>
+      prevFields.map((field) =>
+        field.id === id ? { ...field, delay: validDelay } : field
+      )
+    );
+  };
+
   const addTextField = () => {
-    const newId = Date.now().toString(); // Уникальный ID на основе времени
-    setFields((prevFields) => [...prevFields, { id: newId, value: "" }]);
+    const newId = Date.now().toString();
+    setFields((prevFields) => [
+      ...prevFields,
+      { id: newId, value: "", delay: 0 },
+    ]);
   };
 
   const removeTextField = (id: string) => {
@@ -41,6 +61,30 @@ export const BuildMacrosSettings: React.FC = () => {
       setFields((prevFields) => prevFields.filter((field) => field.id !== id));
     }
   };
+
+  const handleSave = () => {
+    const data = fields.map((field) => ({
+      macros: field.value,
+      delay: field.delay,
+    }));
+    console.log("Сохраненные данные:", data);
+
+    // Можно сохранить в разных форматах:
+    const macros = fields.map((f) => f.value);
+    const delays = fields.map((f) => f.delay);
+    const combined = fields.map((f) => ({
+      id: f.id,
+      macros: f.value,
+      delay: f.delay,
+    }));
+
+    setMacros(macros);
+    setDelays(delays);
+    // Ваша логика сохранения...
+  };
+
+  // Рассчитываем общую задержку (для информации)
+  const totalDelay = fields.reduce((sum, field) => sum + field.delay, 0);
 
   return (
     <Box
@@ -72,6 +116,7 @@ export const BuildMacrosSettings: React.FC = () => {
           <Typography variant="h5" component="h2">
             Настройки макросов
           </Typography>
+          <BuildMacrosCountAccs />
           <Button
             variant="contained"
             startIcon={<AddIcon />}
@@ -81,6 +126,9 @@ export const BuildMacrosSettings: React.FC = () => {
             Добавить
           </Button>
         </Box>
+        <Typography variant="body2" color="text.secondary">
+          Всего макросов: {fields.length} | Общая задержка: {totalDelay}мс
+        </Typography>
       </Box>
 
       <Box
@@ -102,9 +150,38 @@ export const BuildMacrosSettings: React.FC = () => {
                   mb: 1.5,
                 }}
               >
-                <Typography variant="subtitle1" fontWeight="medium">
-                  Macros {index + 1} {/* Используем индекс для нумерации */}
-                </Typography>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                  <Typography variant="subtitle1" fontWeight="medium">
+                    Macros {index + 1}
+                  </Typography>
+
+                  {/* Поле для ввода задержки */}
+                  <TextField
+                    type="number"
+                    size="small"
+                    label="Задержка"
+                    value={field.delay}
+                    onChange={(e) =>
+                      handleDelayChange(field.id, parseInt(e.target.value) || 0)
+                    }
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <TimeIcon fontSize="small" />
+                        </InputAdornment>
+                      ),
+                      endAdornment: (
+                        <InputAdornment position="end">мс</InputAdornment>
+                      ),
+                      inputProps: {
+                        min: 0,
+                        max: 999999,
+                        style: { width: "100px" },
+                      },
+                    }}
+                    sx={{ width: 150 }}
+                  />
+                </Box>
 
                 {fields.length > 1 && (
                   <IconButton
@@ -127,7 +204,31 @@ export const BuildMacrosSettings: React.FC = () => {
                 onChange={(e) => handleInputChange(field.id, e.target.value)}
                 placeholder={`Введите текст для Macros ${index + 1}...`}
                 size="medium"
+                sx={{ mb: 1 }}
               />
+
+              {/* Информация о макросе */}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  mt: 1,
+                  pt: 1,
+                  borderTop: "1px dashed",
+                  borderColor: "divider",
+                }}
+              >
+                <Typography variant="caption" color="text.secondary">
+                  Символов: {field.value.length}
+                </Typography>
+                <Typography
+                  variant="caption"
+                  color={field.delay > 0 ? "primary" : "text.secondary"}
+                >
+                  Задержка: {field.delay}мс
+                </Typography>
+              </Box>
             </Paper>
           ))}
         </Stack>
@@ -145,17 +246,22 @@ export const BuildMacrosSettings: React.FC = () => {
         <Button
           variant="contained"
           startIcon={<SaveIcon />}
-          onClick={() =>
-            console.log(
-              "Saved:",
-              fields.map((f) => f.value)
-            )
-          }
+          onClick={handleSave}
           fullWidth
           size="large"
         >
           Сохранить ({fields.length} макросов)
         </Button>
+
+        {/* Дополнительная информация */}
+        <Box sx={{ mt: 1, display: "flex", justifyContent: "space-between" }}>
+          <Typography variant="caption" color="text.secondary">
+            Всего символов: {fields.reduce((sum, f) => sum + f.value.length, 0)}
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
+            Общая задержка: {totalDelay}мс ({(totalDelay / 1000).toFixed(2)}с)
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );

@@ -1,26 +1,26 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface SoloButtonStore {
+interface BuildMacrosStore {
   countAccs: number;
-  batsName: string;
-  macros: string;
+  macros: string[];
+  delays: number[];
 
   setCountAccs: (value: number) => void;
-  setBatsName: (value: string) => void;
-  setMacros: (value: string) => void;
+  setMacros: (value: string[]) => void;
+  setDelays: (value: number[]) => void;
 }
 
-const useSomeBatsStore = create<SoloButtonStore>()(
+const useBuildMacros = create<BuildMacrosStore>()(
   persist(
     (set) => ({
       countAccs: 24,
-      batsName: "",
-      macros: "",
+      macros: [],
+      delays: [],
 
       setCountAccs: (value) => set({ countAccs: value }),
-      setBatsName: (value) => set({ batsName: value }),
       setMacros: (value) => set({ macros: value }),
+      setDelays: (value) => set({ delays: value }),
     }),
     {
       name: "some-bats-storage",
@@ -28,4 +28,4 @@ const useSomeBatsStore = create<SoloButtonStore>()(
   )
 );
 
-export default useSomeBatsStore;
+export default useBuildMacros;
