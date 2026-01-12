@@ -24,14 +24,14 @@ export const SomeBatsWindow: React.FC = () => {
       elements.push("DELAY : 180000");
       for (let i = 0; i < countAccs; i++) {
         elements.push(`IF WINDOW EXISTS : ${100 + i + 1} - Google Chrome : 0`);
-        elements.push(`SWITCH TO WINDOW : ${100 + i + 1} = Google Chrome : 0`);
+        elements.push(`SWITCH TO WINDOW : ${100 + i + 1} - Google Chrome : 0`);
         elements.push(`Keyboard : F5 : KeyPress`);
         elements.push(`ENDIF`);
       }
       elements.push("DELAY : 20000");
       for (let i = 0; i < countAccs; i++) {
         elements.push(`IF WINDOW EXISTS : ${100 + i + 1} - Google Chrome : 0`);
-        elements.push(`SWITCH TO WINDOW : ${100 + i + 1} = Google Chrome : 0`);
+        elements.push(`SWITCH TO WINDOW : ${100 + i + 1} - Google Chrome : 0`);
         elements.push(`Keyboard : Enter : KeyPress`);
         elements.push(`ENDIF`);
       }
