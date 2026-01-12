@@ -13,7 +13,7 @@ export const CloneMacrosWindow: React.FC = () => {
 
   for (let i = 0; i < coutAccs; i++) {
     elements.push(`IF WINDOW EXISTS : ${100 + i + 1} - Google Chrome : 0`);
-    elements.push(`SWITCH TO WINDOW : ${100 + i + 1} = Google Chrome : 0`);
+    elements.push(`SWITCH TO WINDOW : ${100 + i + 1} - Google Chrome : 0`);
     macros.split("\n").forEach((el) => {
       elements.push(el);
     });
