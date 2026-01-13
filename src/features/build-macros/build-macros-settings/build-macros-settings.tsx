@@ -72,11 +72,6 @@ export const BuildMacrosSettings: React.FC = () => {
     // Можно сохранить в разных форматах:
     const macros = fields.map((f) => f.value);
     const delays = fields.map((f) => f.delay);
-    const combined = fields.map((f) => ({
-      id: f.id,
-      macros: f.value,
-      delay: f.delay,
-    }));
 
     setMacros(macros);
     setDelays(delays);
