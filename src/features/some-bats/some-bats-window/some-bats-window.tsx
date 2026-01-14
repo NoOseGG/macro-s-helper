@@ -21,12 +21,21 @@ export const SomeBatsWindow: React.FC = () => {
     if (batsNameSplit[i]) {
       elements.push(`OPEN FILE : ${batsNameSplit[i]} :  : 0`);
 
-      elements.push("DELAY : 180000");
+      elements.push("DELAY : 120000");
       for (let i = 0; i < countAccs; i++) {
         elements.push(`IF WINDOW EXISTS : ${100 + i + 1} - Google Chrome : 0`);
         elements.push(`SWITCH TO WINDOW : ${100 + i + 1} - Google Chrome : 0`);
         elements.push(`Keyboard : F5 : KeyPress`);
         elements.push(`ENDIF`);
+        elements.push("DELAY : 200");
+      }
+      elements.push("DELAY : 60000");
+      for (let i = 0; i < countAccs; i++) {
+        elements.push(`IF WINDOW EXISTS : ${100 + i + 1} - Google Chrome : 0`);
+        elements.push(`SWITCH TO WINDOW : ${100 + i + 1} - Google Chrome : 0`);
+        elements.push(`Keyboard : F5 : KeyPress`);
+        elements.push(`ENDIF`);
+        elements.push("DELAY : 200");
       }
       elements.push("DELAY : 20000");
       for (let i = 0; i < countAccs; i++) {
@@ -34,6 +43,7 @@ export const SomeBatsWindow: React.FC = () => {
         elements.push(`SWITCH TO WINDOW : ${100 + i + 1} - Google Chrome : 0`);
         elements.push(`Keyboard : Enter : KeyPress`);
         elements.push(`ENDIF`);
+        elements.push("DELAY : 200");
       }
       elements.push("DELAY : 60000");
     }
