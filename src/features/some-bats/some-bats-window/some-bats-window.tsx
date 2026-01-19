@@ -63,6 +63,7 @@ export const SomeBatsWindow: React.FC = () => {
     }
     elements.push("DELAY : 20000");
   }
+  elements.push("SHUTDOWN : 1");
 
   const copyTextToBuffer = () => {
     // Преобразуем массив в строку с переносами
