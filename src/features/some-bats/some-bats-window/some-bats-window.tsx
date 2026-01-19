@@ -59,9 +59,10 @@ export const SomeBatsWindow: React.FC = () => {
         elements.push(`SWITCH TO WINDOW : ${100 + i + 1} = Google Chrome : 0`);
         elements.push(`CLOSE WINDOW : ${100 + i + 1} - Google Chrome : 0`);
         elements.push(`ENDIF`);
+        elements.push("DELAY : 200");
       }
     }
-    elements.push("DELAY : 20000");
+    elements.push("DELAY : 60000");
   }
   elements.push("SHUTDOWN : 1");
 
