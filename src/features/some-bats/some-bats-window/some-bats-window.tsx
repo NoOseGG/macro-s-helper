@@ -13,7 +13,9 @@ export const SomeBatsWindow: React.FC = () => {
   const elements: string[] = [];
 
   const batsNameSplit = batsName.split("\n");
-  const macrosSplit = macros.split("\n");
+  const macrosString =
+    typeof macros === "string" ? macros : String(macros || "");
+  const macrosSplit = macrosString.split("\n");
 
   console.log("bats", batsNameSplit);
 
