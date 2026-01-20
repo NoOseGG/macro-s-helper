@@ -18,7 +18,7 @@ export const BuildMacrosWindow: React.FC = () => {
 
       for (let i = 0; i < countAccs; i++) {
         result.push(`IF WINDOW EXISTS : ${101 + i} - Google Chrome : 0`);
-        result.push(`SWITCH TO WINDOW : ${101 + i} = Google Chrome : 0`);
+        result.push(`SWITCH TO WINDOW : ${101 + i} - Google Chrome : 0`);
 
         macros[j].split("\n").forEach((el) => result.push(el));
 
