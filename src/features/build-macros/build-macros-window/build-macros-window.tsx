@@ -10,26 +10,37 @@ export const BuildMacrosWindow: React.FC = () => {
   const macros = useBuildMacros((state) => state.macros);
   const delays = useBuildMacros((state) => state.delays);
   const innerDelays = useBuildMacros((state) => state.innerDelays);
-  const elements: string[] = [];
+  const elements = React.useMemo(() => {
+    const result: string[] = [];
 
-  const copyTextToBuffer = () => {
-    // Преобразуем массив в строку с переносами
+    for (let j = 0; j < macros.length; j++) {
+      result.push(`DELAY : ${delays[j]}`);
+
+      for (let i = 0; i < countAccs; i++) {
+        result.push(`IF WINDOW EXISTS : ${101 + i} - Google Chrome : 0`);
+        result.push(`SWITCH TO WINDOW : ${101 + i} = Google Chrome : 0`);
+
+        macros[j].split("\n").forEach((el) => result.push(el));
+
+        result.push(`ENDIF`);
+
+        if (i < countAccs - 1) {
+          result.push(`DELAY : ${innerDelays[j]}`);
+        }
+      }
+    }
+
+    return result;
+  }, [macros, delays, innerDelays, countAccs]);
+
+  const copyTextToBuffer = React.useCallback(() => {
     const combinedString = elements.join("\n");
 
-    // Копируем в буфер обмена
     navigator.clipboard
       .writeText(combinedString)
-      .then(() => {
-        alert("Скопировано в буфер обмена!");
-      })
-      .catch((err) => {
-        console.error("Ошибка копирования: ", err);
-      });
-
-    // Также
-
-    return combinedString;
-  };
+      .then(() => alert("Скопировано в буфер обмена!"))
+      .catch(console.error);
+  }, [elements]);
 
   console.log("macros", macros);
 
@@ -37,20 +48,6 @@ export const BuildMacrosWindow: React.FC = () => {
   const splitMacros =
     macrosArray.length > 0 ? macrosArray.join("\n").split("\n") : [];
   console.log("split", splitMacros);
-
-  for (let j = 0; j < macros.length; j++) {
-    elements.push(`DELAY : ${delays[j]}`);
-    for (let i = 0; i < countAccs; i++) {
-      elements.push(`IF WINDOW EXISTS : ${100 + i + 1} - Google Chrome : 0`);
-      elements.push(`SWITCH TO WINDOW : ${100 + i + 1} = Google Chrome : 0`);
-      macros[j].split("\n").forEach((el) => elements.push(el));
-      elements.push(`ENDIF`);
-
-      if (i < countAccs - 1) {
-        elements.push(`DELAY : ${innerDelays[j]}`);
-      }
-    }
-  }
 
   return (
     <div className={styles.container}>

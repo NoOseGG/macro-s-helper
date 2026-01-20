@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 interface BuildMacrosStore {
   countAccs: number;
@@ -13,23 +12,16 @@ interface BuildMacrosStore {
   setInnerDelays: (value: number[]) => void;
 }
 
-const useBuildMacros = create<BuildMacrosStore>()(
-  persist(
-    (set) => ({
-      countAccs: 24,
-      macros: [],
-      delays: [5000],
-      innerDelays: [150],
+const useBuildMacros = create<BuildMacrosStore>()((set) => ({
+  countAccs: 24,
+  macros: [],
+  delays: [5000],
+  innerDelays: [150],
 
-      setCountAccs: (value) => set({ countAccs: value }),
-      setMacros: (value) => set({ macros: value }),
-      setDelays: (value) => set({ delays: value }),
-      setInnerDelays: (value) => set({ innerDelays: value }),
-    }),
-    {
-      name: "some-bats-storage",
-    },
-  ),
-);
+  setCountAccs: (value) => set({ countAccs: value }),
+  setMacros: (value) => set({ macros: value }),
+  setDelays: (value) => set({ delays: value }),
+  setInnerDelays: (value) => set({ innerDelays: value }),
+}));
 
 export default useBuildMacros;
