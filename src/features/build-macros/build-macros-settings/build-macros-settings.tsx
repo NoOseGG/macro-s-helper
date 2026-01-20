@@ -190,7 +190,7 @@ export const BuildMacrosSettings: React.FC = () => {
                         handleDelayChange(field.id, Math.min(numValue, 999999));
                       }
                     }}
-                    onBlur={(e) => {
+                    onBlur={() => {
                       // При потере фокуса, если значение undefined/null, ставим 0
                       if (field.delay === undefined || field.delay === null) {
                         handleDelayChange(field.id, 0);
@@ -237,7 +237,7 @@ export const BuildMacrosSettings: React.FC = () => {
                         );
                       }
                     }}
-                    onBlur={(e) => {
+                    onBlur={() => {
                       // При потере фокуса, если значение undefined/null, ставим 0
                       if (
                         field.innerDelay === undefined ||
