@@ -18,8 +18,8 @@ const useBuildMacros = create<BuildMacrosStore>()(
     (set) => ({
       countAccs: 24,
       macros: [],
-      delays: [],
-      innerDelays: [],
+      delays: [5000],
+      innerDelays: [150],
 
       setCountAccs: (value) => set({ countAccs: value }),
       setMacros: (value) => set({ macros: value }),
@@ -28,8 +28,8 @@ const useBuildMacros = create<BuildMacrosStore>()(
     }),
     {
       name: "some-bats-storage",
-    }
-  )
+    },
+  ),
 );
 
 export default useBuildMacros;
