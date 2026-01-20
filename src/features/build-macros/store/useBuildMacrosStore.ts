@@ -5,10 +5,12 @@ interface BuildMacrosStore {
   countAccs: number;
   macros: string[];
   delays: number[];
+  innerDelays: number[];
 
   setCountAccs: (value: number) => void;
   setMacros: (value: string[]) => void;
   setDelays: (value: number[]) => void;
+  setInnerDelays: (value: number[]) => void;
 }
 
 const useBuildMacros = create<BuildMacrosStore>()(
@@ -17,10 +19,12 @@ const useBuildMacros = create<BuildMacrosStore>()(
       countAccs: 24,
       macros: [],
       delays: [],
+      innerDelays: [],
 
       setCountAccs: (value) => set({ countAccs: value }),
       setMacros: (value) => set({ macros: value }),
       setDelays: (value) => set({ delays: value }),
+      setInnerDelays: (value) => set({ innerDelays: value }),
     }),
     {
       name: "some-bats-storage",

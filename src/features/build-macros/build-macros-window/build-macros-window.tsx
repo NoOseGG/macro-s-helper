@@ -9,6 +9,7 @@ export const BuildMacrosWindow: React.FC = () => {
   const countAccs = useBuildMacros((state) => state.countAccs);
   const macros = useBuildMacros((state) => state.macros);
   const delays = useBuildMacros((state) => state.delays);
+  const innerDelays = useBuildMacros((state) => state.innerDelays);
   const elements: string[] = [];
 
   const copyTextToBuffer = () => {
@@ -32,7 +33,9 @@ export const BuildMacrosWindow: React.FC = () => {
 
   console.log("macros", macros);
 
-  const splitMacros = macros.length > 0 ? macros.join("\n").split("\n") : [];
+  const macrosArray = Array.isArray(macros) ? macros : [];
+  const splitMacros =
+    macrosArray.length > 0 ? macrosArray.join("\n").split("\n") : [];
   console.log("split", splitMacros);
 
   for (let j = 0; j < macros.length; j++) {
@@ -42,6 +45,10 @@ export const BuildMacrosWindow: React.FC = () => {
       elements.push(`SWITCH TO WINDOW : ${100 + i + 1} = Google Chrome : 0`);
       macros[j].split("\n").forEach((el) => elements.push(el));
       elements.push(`ENDIF`);
+
+      if (i < countAccs - 1) {
+        elements.push(`DELAY : ${innerDelays[j]}`);
+      }
     }
   }
 

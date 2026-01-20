@@ -21,20 +21,24 @@ import { BuildMacrosCountAccs } from "./ui/build-macros-count-accs";
 interface FieldData {
   id: string;
   value: string;
-  delay: number; // Добавляем поле для задержки
+  delay: number;
+  innerDelay: number;
 }
 
 export const BuildMacrosSettings: React.FC = () => {
   const [fields, setFields] = useState<FieldData[]>([
-    { id: "1", value: "", delay: 0 },
-    { id: "2", value: "", delay: 0 },
+    { id: "1", value: "", delay: 5000, innerDelay: 150 },
   ]);
   const setMacros = useBuildMacros((state) => state.setMacros);
   const setDelays = useBuildMacros((state) => state.setDelays);
+  const setInnerDelays = useBuildMacros((state) => state.setInnerDelays);
+  const countAccs = useBuildMacros((state) => state.countAccs);
 
   const handleInputChange = (id: string, value: string) => {
     setFields((prevFields) =>
-      prevFields.map((field) => (field.id === id ? { ...field, value } : field))
+      prevFields.map((field) =>
+        field.id === id ? { ...field, value } : field,
+      ),
     );
   };
 
@@ -43,8 +47,18 @@ export const BuildMacrosSettings: React.FC = () => {
     const validDelay = Math.max(0, Math.min(delay, 999999)); // Макс 999999 мс
     setFields((prevFields) =>
       prevFields.map((field) =>
-        field.id === id ? { ...field, delay: validDelay } : field
-      )
+        field.id === id ? { ...field, delay: validDelay } : field,
+      ),
+    );
+  };
+
+  const handleInnerDelayChange = (id: string, delay: number) => {
+    // Ограничиваем ввод отрицательных чисел и больших значений
+    const validDelay = Math.max(0, Math.min(delay, 999999)); // Макс 999999 мс
+    setFields((prevFields) =>
+      prevFields.map((field) =>
+        field.id === id ? { ...field, innerDelay: validDelay } : field,
+      ),
     );
   };
 
@@ -52,7 +66,7 @@ export const BuildMacrosSettings: React.FC = () => {
     const newId = Date.now().toString();
     setFields((prevFields) => [
       ...prevFields,
-      { id: newId, value: "", delay: 0 },
+      { id: newId, value: "", delay: 5000, innerDelay: 150 },
     ]);
   };
 
@@ -66,20 +80,26 @@ export const BuildMacrosSettings: React.FC = () => {
     const data = fields.map((field) => ({
       macros: field.value,
       delay: field.delay,
+      innerDelay: field.innerDelay,
     }));
     console.log("Сохраненные данные:", data);
 
     // Можно сохранить в разных форматах:
     const macros = fields.map((f) => f.value);
     const delays = fields.map((f) => f.delay);
+    const innerDelays = fields.map((f) => f.innerDelay);
 
     setMacros(macros);
     setDelays(delays);
+    setInnerDelays(innerDelays);
     // Ваша логика сохранения...
   };
 
   // Рассчитываем общую задержку (для информации)
-  const totalDelay = fields.reduce((sum, field) => sum + field.delay, 0);
+  const totalDelay = fields.reduce(
+    (sum, field) => sum + field.delay + field.innerDelay * (countAccs - 1),
+    0,
+  );
 
   return (
     <Box
@@ -154,11 +174,28 @@ export const BuildMacrosSettings: React.FC = () => {
                   <TextField
                     type="number"
                     size="small"
-                    label="Задержка"
-                    value={field.delay}
-                    onChange={(e) =>
-                      handleDelayChange(field.id, parseInt(e.target.value) || 0)
-                    }
+                    label="Перед макросом"
+                    value={field.delay || ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+
+                      // Если поле пустое, устанавливаем undefined/null
+                      if (value === "") {
+                        handleDelayChange(field.id, 0); // или null
+                        return;
+                      }
+
+                      const numValue = parseInt(value, 10);
+                      if (!isNaN(numValue) && numValue >= 0) {
+                        handleDelayChange(field.id, Math.min(numValue, 999999));
+                      }
+                    }}
+                    onBlur={(e) => {
+                      // При потере фокуса, если значение undefined/null, ставим 0
+                      if (field.delay === undefined || field.delay === null) {
+                        handleDelayChange(field.id, 0);
+                      }
+                    }}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -171,6 +208,57 @@ export const BuildMacrosSettings: React.FC = () => {
                       inputProps: {
                         min: 0,
                         max: 999999,
+                        step: 50,
+                        style: { width: "100px" },
+                      },
+                    }}
+                    sx={{ width: 150 }}
+                  />
+
+                  <TextField
+                    type="number"
+                    size="small"
+                    label="Внутри макроса"
+                    value={field.innerDelay || ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+
+                      // Если поле пустое, устанавливаем undefined/null
+                      if (value === "") {
+                        handleInnerDelayChange(field.id, 0); // или null
+                        return;
+                      }
+
+                      const numValue = parseInt(value, 10);
+                      if (!isNaN(numValue) && numValue >= 0) {
+                        handleInnerDelayChange(
+                          field.id,
+                          Math.min(numValue, 999999),
+                        );
+                      }
+                    }}
+                    onBlur={(e) => {
+                      // При потере фокуса, если значение undefined/null, ставим 0
+                      if (
+                        field.innerDelay === undefined ||
+                        field.innerDelay === null
+                      ) {
+                        handleInnerDelayChange(field.id, 0);
+                      }
+                    }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <TimeIcon fontSize="small" />
+                        </InputAdornment>
+                      ),
+                      endAdornment: (
+                        <InputAdornment position="end">мс</InputAdornment>
+                      ),
+                      inputProps: {
+                        min: 0,
+                        max: 999999,
+                        step: 50,
                         style: { width: "100px" },
                       },
                     }}
