@@ -25,3 +25,27 @@
 .link {
   width: 100%;
 }
+
+.signInBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signInTitle {
+  text-align: center;
+  font-size: 28px;
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.SignInButtonWrapper {
+  margin-top: 20px;
+  font-size: 24px;
+  background-color: #3476d3;
+  color: #fff;
+}
+
+.signInButton {
+  margin-top: 20px;
+}
