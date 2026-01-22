@@ -42,10 +42,10 @@
 .SignInButtonWrapper {
   margin-top: 20px;
   font-size: 24px;
-  background-color: #3476d3;
-  color: #fff;
 }
 
 .signInButton {
   margin-top: 20px;
+  background-color: #3476d3;
+  color: #fff;
 }
