@@ -8,6 +8,7 @@ import useCloneMacrosStore from "../store/useCloneMacrosStore";
 export const CloneMacrosWindow: React.FC = () => {
   const coutAccs = useCloneMacrosStore((state) => state.countAccs);
   const macros = useCloneMacrosStore((state) => state.macros);
+  const delay = useCloneMacrosStore((state) => state.delay);
 
   const elements: string[] = [];
 
@@ -18,6 +19,7 @@ export const CloneMacrosWindow: React.FC = () => {
       elements.push(el);
     });
     elements.push(`ENDIF`);
+    if (delay) elements.push(`DELAY : ${delay}`);
   }
 
   const copyTextToBuffer = () => {

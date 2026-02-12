@@ -31,7 +31,7 @@ export const SoloButtonMacrosWindow: React.FC = () => {
 
   for (let i = 0; i < coutAccs; i++) {
     elements.push(`IF WINDOW EXISTS : ${100 + i + 1} - Google Chrome : 0`);
-    elements.push(`SWITCH TO WINDOW : ${100 + i + 1} = Google Chrome : 0`);
+    elements.push(`SWITCH TO WINDOW : ${100 + i + 1} - Google Chrome : 0`);
     elements.push(`Keyboard : ${button} : ${pressType}`);
     if (delay) elements.push(`DELAY : ${delay}`);
     elements.push(`ENDIF`);

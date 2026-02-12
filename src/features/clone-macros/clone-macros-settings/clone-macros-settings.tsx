@@ -5,6 +5,7 @@ import styles from "./clone-macros-setting.module.css";
 import { SoloButtonCountAccs } from "./ui/clone-macros-count-accs";
 import { TextField } from "@mui/material";
 import useCloneMacrosStore from "../store/useCloneMacrosStore";
+import { CloneMacrosDelayInput } from "./ui/clone-macros-delay-input";
 
 export const CloneMacrosSettings: React.FC = () => {
   const macros = useCloneMacrosStore((state) => state.macros);
@@ -17,6 +18,7 @@ export const CloneMacrosSettings: React.FC = () => {
   return (
     <div className={styles.container}>
       <SoloButtonCountAccs />
+      <CloneMacrosDelayInput />
       <TextField
         id="outlined-multiline-static"
         label="Macros"
