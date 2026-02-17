@@ -10,7 +10,9 @@ export const SomeBatsCountReloads = () => {
     let value = e.target.value;
 
     // В store сохраняем число (0 для пустой строки)
-    const numValue = value === "" ? 0 : Number(value);
+    const checkValue = value === "" ? 0 : Number(value);
+
+    const numValue = checkValue > 5 ? 5 : checkValue;
     if (!isNaN(numValue)) {
       setCountReloads(numValue);
     }
