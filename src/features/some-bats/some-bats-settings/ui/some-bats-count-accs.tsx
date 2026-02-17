@@ -7,7 +7,7 @@ export const SomeBatsCountAccs = () => {
   const setCountAccs = useCloneMacrosStore((state) => state.setCountAccs);
 
   const [displayValue, setDisplayValue] = useState<string>(
-    countAccs.toString()
+    countAccs.toString(),
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +36,7 @@ export const SomeBatsCountAccs = () => {
 
   return (
     <TextField
+      fullWidth
       type="number"
       label="Count accounts"
       value={displayValue}

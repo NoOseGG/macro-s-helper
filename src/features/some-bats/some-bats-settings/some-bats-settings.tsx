@@ -5,11 +5,15 @@ import styles from "./some-bats-setting.module.css";
 import { SomeBatsCountAccs } from "./ui/some-bats-count-accs";
 import { SomeBatsName } from "./ui/some-bats-name";
 import { SomeBatsMacros } from "./ui/some-bats-macros";
+import { SomeBatsCountReloads } from "./ui/some-bats-count-reloads";
 
 export const SomeBatsSettings: React.FC = () => {
   return (
     <div className={styles.container}>
-      <SomeBatsCountAccs />
+      <div className={styles.countBox}>
+        <SomeBatsCountAccs />
+        <SomeBatsCountReloads />
+      </div>
       <SomeBatsName />
       <SomeBatsMacros />
     </div>

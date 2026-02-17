@@ -1,7 +1,9 @@
 import { TextField } from "@mui/material";
 import React from "react";
-import useSomeBatsStore from "../../store/useSomeBatsStore";
-import { SomeBatsClearMacrosBtn } from "./some-bats-clear-macros-btn/some-bats-clear-macros-btn";
+import useSomeBatsStore from "../../../store/useSomeBatsStore";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+import styles from "./some-bats-macros.module.css";
 
 export const SomeBatsMacros = () => {
   const macros = useSomeBatsStore((state) => state.macros);
@@ -13,18 +15,24 @@ export const SomeBatsMacros = () => {
     setMacros(e.target.value);
   };
 
+  const handleDelete = () => {
+    setMacros("");
+  };
+
   return (
-    <div style={{ position: "relative" }}>
+    <div className={styles.container}>
       <TextField
-        fullWidth
         id="outlined-multiline-static"
         label="Macros"
         multiline
         rows={10}
         value={macros}
         onChange={handleChangeMacros}
+        className={styles.textArea}
       />
-      <SomeBatsClearMacrosBtn />
+      <div className={styles.deleteButton} onClick={handleDelete}>
+        <DeleteIcon fontSize="large" />
+      </div>
     </div>
   );
 };

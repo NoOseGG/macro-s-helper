@@ -7,6 +7,7 @@ import useSomeBatsStore from "../store/useSomeBatsStore";
 
 export const SomeBatsWindow: React.FC = () => {
   const countAccs = useSomeBatsStore((state) => state.countAccs);
+  const countReloads = useSomeBatsStore((state) => state.countReloads);
   const batsName = useSomeBatsStore((state) => state.batsName);
   const macros = useSomeBatsStore((state) => state.macros);
 
@@ -31,14 +32,22 @@ export const SomeBatsWindow: React.FC = () => {
         elements.push(`ENDIF`);
         elements.push("DELAY : 200");
       }
-      elements.push("DELAY : 60000");
-      for (let i = 0; i < countAccs; i++) {
-        elements.push(`IF WINDOW EXISTS : ${100 + i + 1} - Google Chrome : 0`);
-        elements.push(`SWITCH TO WINDOW : ${100 + i + 1} - Google Chrome : 0`);
-        elements.push(`Keyboard : F5 : KeyPress`);
-        elements.push(`ENDIF`);
-        elements.push("DELAY : 200");
+
+      for (let j = 0; j < countReloads; j++) {
+        elements.push("DELAY : 60000");
+        for (let i = 0; i < countAccs; i++) {
+          elements.push(
+            `IF WINDOW EXISTS : ${100 + i + 1} - Google Chrome : 0`,
+          );
+          elements.push(
+            `SWITCH TO WINDOW : ${100 + i + 1} - Google Chrome : 0`,
+          );
+          elements.push(`Keyboard : F5 : KeyPress`);
+          elements.push(`ENDIF`);
+          elements.push("DELAY : 200");
+        }
       }
+
       elements.push("DELAY : 20000");
       for (let i = 0; i < countAccs; i++) {
         elements.push(`IF WINDOW EXISTS : ${100 + i + 1} - Google Chrome : 0`);

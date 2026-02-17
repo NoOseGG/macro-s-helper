@@ -1,0 +1,17 @@
+.container {
+    width: 100%;
+    position: relative;
+}
+
+.textArea {
+    width: 100%;
+}
+
+.deleteButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
