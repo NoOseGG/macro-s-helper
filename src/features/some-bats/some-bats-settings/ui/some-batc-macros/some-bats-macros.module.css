@@ -1,0 +1,10 @@
+.container {
+    position: relative;
+    flex: 1;
+    display: flex;
+}
+
+.textArea {
+    flex: 1;
+    height: 100%;
+}

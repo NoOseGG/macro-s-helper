@@ -4,7 +4,7 @@ import styles from "./some-bats-setting.module.css";
 
 import { SomeBatsCountAccs } from "./ui/some-bats-count-accs";
 import { SomeBatsName } from "./ui/some-bats-name";
-import { SomeBatsMacros } from "./ui/some-bats-macros";
+import { SomeBatsMacros } from "./ui/some-batc-macros/some-bats-macros";
 import { SomeBatsCountReloads } from "./ui/some-bats-count-reloads";
 import { SomeBatsShutdown } from "./ui/some-bats-shutdown/some-bats-shutdown";
 
