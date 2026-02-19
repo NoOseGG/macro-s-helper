@@ -17,9 +17,6 @@ export const HomePage: React.FC = () => {
       case NavigatePath.Button:
         navigate(NavigatePath.Button);
         break;
-      case NavigatePath.SomeButtons:
-        navigate(NavigatePath.SomeButtons);
-        break;
       case NavigatePath.CloneMacros:
         navigate(NavigatePath.CloneMacros);
         break;
@@ -60,12 +57,6 @@ export const HomePage: React.FC = () => {
             onClick={() => onNavigate(NavigatePath.Button)}
           >
             Макрос на одну кнопку
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={() => onNavigate(NavigatePath.SomeButtons)}
-          >
-            Макрос на несколько кнопкок
           </Button>
           <Button
             variant="outlined"
