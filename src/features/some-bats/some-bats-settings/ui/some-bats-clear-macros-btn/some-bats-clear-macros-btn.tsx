@@ -23,7 +23,7 @@ export const SomeBatsClearMacrosBtn: React.FC = () => {
     >
       {isHovered ?
         <DeleteIcon fontSize="large" />
-      : <DeleteOutlineIcon fontSize="large" />}
+      : <DeleteOutlineIcon sx={{ color: "#8b8b8b" }} fontSize="large" />}
     </div>
   );
 };

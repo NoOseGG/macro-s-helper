@@ -2,7 +2,7 @@ import { TextField } from "@mui/material";
 import React, { useState } from "react";
 import useCloneMacrosStore from "../../store/useSomeBatsStore";
 
-export const SomeBatsCountAccs = () => {
+export const  SomeBatsCountAccs = () => {
   const countAccs = useCloneMacrosStore((state) => state.countAccs);
   const setCountAccs = useCloneMacrosStore((state) => state.setCountAccs);
 

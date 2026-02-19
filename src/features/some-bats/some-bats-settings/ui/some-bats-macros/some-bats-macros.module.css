@@ -1,10 +1,12 @@
 .container {
     width: 100%;
     position: relative;
+    flex: 1;
 }
 
 .textArea {
     width: 100%;
+    flex: 1;
 }
 
 .deleteButton {

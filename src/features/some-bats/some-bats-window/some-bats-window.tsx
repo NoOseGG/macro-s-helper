@@ -10,6 +10,7 @@ export const SomeBatsWindow: React.FC = () => {
   const countReloads = useSomeBatsStore((state) => state.countReloads);
   const batsName = useSomeBatsStore((state) => state.batsName);
   const macros = useSomeBatsStore((state) => state.macros);
+  const isShutdown = useSomeBatsStore((state) => state.isShutdown);
 
   const elements: string[] = [];
 
@@ -75,7 +76,7 @@ export const SomeBatsWindow: React.FC = () => {
     }
     elements.push("DELAY : 60000");
   }
-  elements.push("SHUTDOWN : 1");
+  if (isShutdown) elements.push("SHUTDOWN : 1");
 
   const copyTextToBuffer = () => {
     // Преобразуем массив в строку с переносами
